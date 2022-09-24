@@ -1,14 +1,18 @@
 pipeline {
     agent any 
-    environment{              //environment attribute. What is defined in this block will be available for all stages   
+    environment{             
         NEW_VERSION = '1.3.0'
         }
-    stages { 
+    stages {
+        stage("init"){
+            script {
+                gv = load "script.groovy"
+            }
+        } 
         stage('build') {
             steps {
                 script {
-                    echo "Building the application..."
-                    echo "building version ${NEW_VERSION}"
+                    gv.buildApp()
                 }
             }
         }
@@ -20,7 +24,7 @@ pipeline {
             }
             steps {
                 script {                    
-                    echo "Testing the application..."
+                    gv.testApp()
                 }
             }
         }
@@ -32,7 +36,6 @@ pipeline {
                         echo 'username : ${USERNAME} password : ${PASSWORD}'
 }   
                 }
-            }
-        }
+            }        }
     }
 }
