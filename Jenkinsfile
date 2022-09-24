@@ -13,7 +13,7 @@ pipeline {
         }
         stage('test') {
             when {
-                branch "main"
+                BRANCH_NAME == "master"
             }
             steps {
                 script {                    
