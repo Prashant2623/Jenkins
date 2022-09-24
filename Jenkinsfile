@@ -13,7 +13,7 @@ pipeline {
         }
         stage('test') {
             when {
-                branch "master"
+                branch "main"
             }
             steps {
                 script {                    
