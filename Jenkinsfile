@@ -12,12 +12,11 @@ pipeline {
             }
         }
         stage('test') {
+            when {
+                branch "master"
+            }
             steps {
-                script {
-                    // when this stage should execute
-                    when {
-                        branch "master"
-                    }
+                script {                    
                     echo "Testing the application..."
                 }
             }
