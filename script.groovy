@@ -8,3 +8,10 @@ def testApp() {
     echo "Testing the application..."
 }
 return this
+def deployApp() {
+     echo "Deploying the application..."
+         withCredentials([usernamePassword(credentialsId: 'server-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]){
+//some block
+}                
+}
+return this

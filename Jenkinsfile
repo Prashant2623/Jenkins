@@ -33,10 +33,7 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
-                    echo "Deploying the application..."
-                    withCredentials([usernamePassword(credentialsId: 'server-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                        echo 'username : ${USERNAME} password : ${PASSWORD}'
-}   
+                    gv.deployApp()    
                 }
             }        }
     }
