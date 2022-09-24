@@ -13,7 +13,9 @@ pipeline {
         }
         stage('test') {
             when {
-                branch "master"
+                expression{
+                  branch 'master'   
+                }
             }
             steps {
                 script {                    
