@@ -16,9 +16,7 @@ pipeline {
                 script {
                     // when this stage should execute
                     when {
-                        expression {
-                            BRANCH_NAME == 'master'
-                        }
+                        branch "master"
                     }
                     echo "Testing the application..."
                 }
