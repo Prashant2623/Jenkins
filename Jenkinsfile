@@ -1,6 +1,6 @@
 pipeline {
     agent any 
-    environment{}
+    
     
     stages {
         stage('build') {
@@ -13,7 +13,7 @@ pipeline {
         }
         stage('test') {
             when {
-                BRANCH_NAME == 'master'
+                branch "master"
             }
             steps {
                 script {                    
