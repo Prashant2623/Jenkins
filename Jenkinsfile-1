@@ -1,4 +1,3 @@
-def docker2624
 pipeline {
     agent any 
     tools{             
