@@ -1,9 +1,9 @@
 pipeline {
-    agent any
-    tools {
-        maven 'maven-3.8'
-    }
-    stages {
+    agent any 
+    tools{             
+        maven 'maven-3.8'  
+        }
+    
         stage('build jar') {
             steps {
                 script {
@@ -12,14 +12,15 @@ pipeline {
                 }
             }
         }
-        stage('build image') {   
+        stage('build image') {
             steps {
                 script {
-                    echo "building the docker image..."
+                    echo "Building the dockerimage..."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                         sh 'docker build -t docker2624/demoapp'
                         sh "echo $PASS | docker login -u $USER --password-stdin"
                         sh 'docker push docker2624/demoapp'
+                    }
                 }
             }
         }
@@ -31,4 +32,6 @@ pipeline {
             }        }
     }
 }
-}
+
+
+ 
