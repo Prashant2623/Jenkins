@@ -1,5 +1,8 @@
 pipeline {
     agent any 
+    environment{
+
+    }
     tools{             
         maven 'maven-3.8'  
         }
@@ -17,9 +20,9 @@ pipeline {
                 script {
                     echo "Building the dockerimage..."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                        sh 'docker build -t docker2624/pipeline .'
+                        sh "docker build -t docker2624/pipeline ."
                         sh "echo $docker2624 | docker login -u $docker2624 --password-stdin"
-                        sh 'docker push docker2624/pipeline'
+                        sh "docker push docker2624/pipeline"
                     }
                 }
             }
