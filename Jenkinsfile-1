@@ -23,6 +23,6 @@ pipeline {
                     sh "ssh -o StrictHostKeyChecking=no ubuntu@54.147.103.147 ${dockerCmd}"
 }
                 }
-                 echo "deploy app"
+                
             }        }
 }
