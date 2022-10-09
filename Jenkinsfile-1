@@ -1,34 +1,28 @@
 pipeline {
     agent any 
-    tools{             
-        maven 'maven-3.8'  
-        }
-    stages{
-        stage('build jar') {
+    
+    stages {
+
+        stage('build') {
             steps {
-                script {
-                    echo "Building the application..."
-                    sh 'mvn package'
+                echo "build app"
                 }
             }
         }
-        stage('build image') {
+        stage('test') {
+            
             steps {
-                script {
-                    echo "Building the dockerimage..."
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                        sh "docker build -t docker2624/pipeline ."
-                        sh "docker login -u $USER -p $PASS"
-                        sh "docker push docker2624/pipeline"
-                    }
-                }
+                echo "test app"
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    echo "deploying the application..."    
+                    def dockerCmd = 'docker run -p 3080:3080 -d docker2624/demoapp'
+                    sshagent(['ec2-server-key']) {
+                    sh "ssh -o StrictHostKeyChecking=no ubuntu@54.147.103.147 ${dockerCmd}"
+}
                 }
+                 echo "deploy app"
             }        }
-    }
 }

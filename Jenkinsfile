@@ -1,41 +1,32 @@
 pipeline {
     agent any 
-    environment{             
-        NEW_VERSION = '1.3.0'
-        }
+    tools {
+        maven 'maven-3.8'
+    }
+    
     stages {
-        stage("init"){
-            steps{
-            script {
-                gv = load "script.groovy"
-            }
-            }
-        } 
-        stage('build') {
+
+        stage('build jar file ') {
             steps {
-                script {
-                    gv.buildApp()
+                echo "build app"
+                sh 'mvn-package'
                 }
             }
         }
-        stage('test') {
-            when {
-                expression{
-                  branch 'master'   
-                }
-            }
+        stage('build docker image') {
             steps {
-                script {                    
-                    gv.testApp()
+                script{
+                    echo "building docker image"
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                    sh 'docker build -t docker2624/pipeline .'
+                    sh 'docker login -u ${USER} -p ${PASS}'
+                    sh 'docker push docker2624/pipeline'
+}
                 }
             }
         }
         stage('deploy') {
             steps {
-                script {
-                    env.ENV = input message: 'Select the environment to deploy to ', OK: 'Done', parameters: [choice(choices: ['DEV', 'STAGE', 'PROD'], name: '')]
-                    gv.deployApp()    
-                }
+                 echo "deploy app"
             }        }
-    }
 }
