@@ -1,18 +1,24 @@
+#!/usr/bin/env groovy
+
 pipeline {
     agent any 
     
     stages {
 
-        stage('build') {
+        stage('build') { 
             steps {
+                script{
                 echo "build app"
                 }
             }
         }
+
         stage('test') {
             
             steps {
+                script{
                 echo "test app"
+                }
             }
         }
         stage('deploy') {
@@ -26,3 +32,5 @@ pipeline {
                 
             }        }
 }
+}
+
