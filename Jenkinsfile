@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
 @Library('jenkins-sharedlibrary')_
+
 pipeline {
     agent any 
     tools {
@@ -12,7 +13,6 @@ pipeline {
         stage('build jar file ') {
             steps {
                 echo "build app"
-                sh 'mvn-package'
                 }
             }
         }
