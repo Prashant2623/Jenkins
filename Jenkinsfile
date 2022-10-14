@@ -4,27 +4,31 @@
 
 pipeline {
     agent any 
-    tools {
-        maven 'maven-3.8'
-    }
-    
-    stages {
-
-        stage('build jar file ') {
+    tools{             
+        maven 'maven-3.8'  
+        }
+    stages{
+        stage('build jar') {
             steps {
-                echo "build app"
+                script {
+                    echo "Building the application..."
+                    sh 'mvn package'
                 }
             }
         }
-        stage('build docker image') {
+        stage('build image') {
             steps {
-                script{
+                script {
                     build()
+                    
                 }
             }
         }
         stage('deploy') {
             steps {
-                 echo "deploy app"
+                script {
+                    echo "deploying the application..."    
+                }
             }        }
+    }
 }
