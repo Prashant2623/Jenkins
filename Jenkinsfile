@@ -1,3 +1,9 @@
+#!/usr/bin/env groovy
+
+@Library('jenkins-sharedlibrary')_
+
+
+
 pipeline {
     agent any 
     tools {
@@ -16,12 +22,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 script{
-                    echo "building docker image"
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                    sh 'docker build -t docker2624/pipeline .'
-                    sh 'docker login -u ${USER} -p ${PASS}'
-                    sh 'docker push docker2624/pipeline'
-}
+                    build()
                 }
             }
         }
