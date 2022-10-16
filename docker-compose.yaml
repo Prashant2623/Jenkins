@@ -3,13 +3,21 @@ services:
     image: docker2624/pipeline
     ports:
       - 8080:8080
-  Postgres:
-    image: Postgres
+  postgres:
+    image: postgres
     ports:
       - 5432:5432
     environment:
       - POSTGRES_PASSWORD=my-pwd 
        
+
+
+
+
+
+
+
+    
 
 
 
