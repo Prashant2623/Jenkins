@@ -1,8 +1,5 @@
 #!/usr/bin/env groovy
 
-library identifier 
-
-
 pipeline {
     agent any 
     
