@@ -6,7 +6,9 @@ provider "aws" {
 variable vpc_cidr_block {}
 variable subnet_cidr_block{}
 variable env_prefix {}
-variable avail_zone{}
+variable avail_zone{
+  default= "us-east-1a"
+}
 
 # Create a Dev VPC and Dev subnet
 resource "aws_vpc" "myapp-vpc" {
