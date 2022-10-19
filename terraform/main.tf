@@ -1,6 +1,6 @@
 #Configure the AWS Provider
 provider "aws" {
-  region = "us-east-1" 
+  region = var.region
 }
 # variables defined 
 variable vpc_cidr_block {
@@ -14,6 +14,9 @@ variable env_prefix {
 }
 variable avail_zone{
   default= "us-east-1a"
+}
+variable region{
+  default="us-east-1"
 }
 
 # Create a Dev VPC and Dev subnet
