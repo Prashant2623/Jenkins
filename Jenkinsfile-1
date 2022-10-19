@@ -49,8 +49,8 @@ pipeline {
 
                     def ec2Instance = "ubuntu@${EC2_PUBLIC_IP}"
                     sshagent(['jenkins-terraform-demo3-server-key']) {
-                    sh "scp -v -o StrictHostKeyChecking=no docker-compose.yaml ubuntu@${ec2Instance}:/home/ubuntu"    
-                    sh "ssh -o StrictHostKeyChecking=no ubuntu@${ec2Instance} ${dockerComposeCmd}"
+                    sh "scp -v -o StrictHostKeyChecking=no docker-compose.yaml ${ec2Instance}:/home/ubuntu"    
+                    sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${dockerComposeCmd}"
 }
                 } 
                 
