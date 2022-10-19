@@ -3,9 +3,15 @@ provider "aws" {
   region = "us-east-1" 
 }
 # variables defined 
-variable vpc_cidr_block {}
-variable subnet_cidr_block{}
-variable env_prefix {}
+variable vpc_cidr_block {
+  default= "10.0.0.0/16"
+}
+variable subnet_cidr_block{
+  default= "10.0.10.0/24"
+}
+variable env_prefix {
+  default= "Dev"
+}
 variable avail_zone{
   default= "us-east-1a"
 }
