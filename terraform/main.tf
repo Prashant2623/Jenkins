@@ -2,7 +2,7 @@
 provider "aws" {
   region = var.region
 }
-# variables defined 
+# variables defined
 variable vpc_cidr_block {
   default= "10.0.0.0/16"
 }
@@ -107,7 +107,10 @@ resource "aws_instance" "myapp-server" {
    Name = "${var.env_prefix}-jenkins-terraform demo"
   }
 }
-output "ec2_public_ip"{
-    value = aws_ami.ubuntu.public_ip
-  }
+output "aws_ami_id"{
+  value= data.aws_ami.ubuntu.id
+}
+//output "ec2_public_ip"{
+    //value = aws_ami.ubuntu.public_ip
+ // }
 
