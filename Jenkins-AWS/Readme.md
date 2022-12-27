@@ -1,4 +1,4 @@
-![image](https://user-images.githubusercontent.com/98226143/209611802-73448d19-8d4a-4927-95b3-223020d05aa0.png)
+![image](https://user-images.githubusercontent.com/98226143/209611874-cf3642d1-5da9-4ee2-b3dd-e2f84094560c.png)
 A docker image is build from JAR file and push to docker hub. This docker image is further pushed to AWS EC2 instance. All the steps are a part of Jenkins Pipeline.
 
 Steps : 
