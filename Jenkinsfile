@@ -21,7 +21,7 @@ pipeline {
             }
         }
         stage('provision server') {
-            emvironment {
+            environment {
                 AWS_ACCESS_KEY_ID = credentials('Jenkins_aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials('Jenkins_aws_secret_access_key')
             }
@@ -32,7 +32,7 @@ pipeline {
                  sh "terraform apply --auto-approve"
                  EC2_PUBLIC_IP = sh(
                     script: "terraform output ec2_public_ip"
-                    
+                    returnStdout: true
                  ).trim()
 
                 }
