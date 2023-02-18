@@ -46,7 +46,7 @@ pipeline {
                     sleep(time: 100, unit: "SECONDS")
                     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
                     sshagent(['jenkins-terraform-demo3-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ${dockerCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance}"
 }
                 }
             }        }
