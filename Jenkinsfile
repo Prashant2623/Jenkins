@@ -44,10 +44,9 @@ pipeline {
                 script {
                     echo "waiting for EC2 server to initialize"
                     sleep(time: 100, unit: "SECONDS")
-                    def dockerCmd = 'docker run -p 3080:3080 -d prashantdocker2623/pipeline'
                     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
                     sshagent(['jenkins-terraform-demo3-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${dockerCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ${dockerCmd}"
 }
                 }
             }        }
