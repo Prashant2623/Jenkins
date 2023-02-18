@@ -32,8 +32,7 @@ pipeline {
                  sh "terraform apply --auto-approve"
                  EC2_PUBLIC_IP = sh(
                     script: "terraform output ec2_public_ip"
-                    
-                 )
+                    )
 
                 }
             }
@@ -47,7 +46,7 @@ pipeline {
                     sleep(time: 100, unit: "SECONDS")
                     def dockerCmd = 'docker run -p 3080:3080 -d prashantdocker2623/pipeline'
                     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
-                    sshagent(['ec2-server-key']) {
+                    sshagent(['jenkins-terraform-demo3-server-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${dockerCmd}"
 }
                 }
