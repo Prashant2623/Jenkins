@@ -16,18 +16,17 @@ pipeline {
             steps {
                 script {
                     echo "Building the dockerimage..."
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                        sh 'docker build -t prashantdocker2623/pipeline .'
-                        sh "docker login -u $USER -p $PASS"
-                        sh 'docker push prashantdocker2623/pipeline'
-                    }
+                    
                 }
             }
         }
         stage('deploy') {
             steps {
                 script {
-                    echo "deploying the application..."    
+                    def dockerCmd = 'docker run -p 3080:3080 -d prashantdocker2623/pipeline'
+                    sshagent(['ec2-server-key']) {
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@18.234.105.130 ${dockerCmd}"
+}
                 }
             }        }
     }
