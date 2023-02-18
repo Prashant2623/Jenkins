@@ -17,9 +17,9 @@ pipeline {
                 script {
                     echo "Building the dockerimage..."
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
-                        sh 'docker build -t docker2624/pipeline .'
+                        sh 'docker build -t prashantdocker2623/pipeline .'
                         sh "docker login -u $USER -p $PASS"
-                        sh 'docker push docker2624/pipeline'
+                        sh 'docker push prashantdocker2623/pipeline'
                     }
                 }
             }
