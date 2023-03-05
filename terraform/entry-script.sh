@@ -1,5 +1,12 @@
-# ! /bin/bash
+#!/bin/bash
+
+# Install Docker 
 sudo yum update -y && sudo yum install -y docker
 sudo systemctl start docker
 sudo usermod  -aG  docker ec2-user
-docker run -p 8080:80 nginx
+
+# Docker login
+export DOCKER_USER=$1
+export DOCKER_USER=$2
+echo $DOCKER_PWD | docker login -u $DOCKER_USER --password-stdin
+echo "success"
