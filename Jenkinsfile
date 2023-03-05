@@ -1,26 +1,18 @@
 pipeline {
     agent any 
-    tools{             
-        maven 'maven-3.8'  
-        }
     stages{
-        stage('build jar') {
+       stage('build image') {
             steps {
                 script {
-                    echo "Building the application..."
-                    sh 'mvn package'
+                    withCredentials([usernamePassword(credentialsId: 'server-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]){
+                        sh 'docker build -t prashantdocker2623/pipeline .'
+                        sh "docker login -u $USER -p $PASS"
+                        sh 'docker push prashantdocker2623/pipeline'
+                    }                    
                 }
             }
         }
-        stage('build image') {
-            steps {
-                script {
-                    echo "Building the dockerimage..."
-                    
-                }
-            }
-        }
-        stage('provision server') {
+       stage('provision server') {
             environment {
                 AWS_ACCESS_KEY_ID = credentials('Jenkins_aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials('Jenkins_aws_secret_access_key')
@@ -40,15 +32,20 @@ pipeline {
         }
     }
         stage('deploy') {
+            environment {
+                DOCKER_CREDS = credentials('docker-hub-repo')
+            }
             steps {
                 script {
                     echo "waiting for EC2 server to initialize"
                     sleep(time: 100, unit: "SECONDS")
                     def ec2Instance = "ec2-user@${EC2_PUBLIC_IP}"
+                    def shellCmd = "bash ./entry-script.sh ${Docker_CREDS_USR} ${DOCKER_CREDS_PSW}"
                     sshagent(['jenkins-terraform-demo3-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ${ec2Instance}"
+                    sh "ssh -o StrictHostKeyChecking=no ${ec2Instance} ${shellCmd}"
 }
                 }
             }        }
     }
 }
+ 
