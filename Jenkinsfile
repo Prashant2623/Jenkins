@@ -4,7 +4,7 @@ pipeline {
        stage('build image') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'server-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]){
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
                         sh 'docker build -t prashantdocker2623/pipeline .'
                         sh "docker login -u $USER -p $PASS"
                         sh 'docker push prashantdocker2623/pipeline'
