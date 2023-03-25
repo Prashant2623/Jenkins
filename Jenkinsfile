@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     stages{
-       stage('build image') {
+       stage('Build and push docker image') {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker-hub', passwordVariable: 'PASS', usernameVariable: 'USER')]){
@@ -12,7 +12,7 @@ pipeline {
                 }
             }
         }
-       stage('provision server') {
+       stage('Provision server') {
             environment {
                 AWS_ACCESS_KEY_ID = credentials('Jenkins_aws_access_key_id')
                 AWS_SECRET_ACCESS_KEY = credentials('Jenkins_aws_secret_access_key')
@@ -32,7 +32,7 @@ pipeline {
             
         }
     }
-        stage('deploy') {
+        stage('Deploy') {
             environment {
                 DOCKER_CREDS = credentials('docker-hub-repo')
             }
